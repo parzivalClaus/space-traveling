@@ -73,4 +73,34 @@
       }
     }
   }
+
+  .pagination {
+    margin-top: 60px;
+    margin-bottom: 40px;
+    padding-top: 48px;
+    border-top: 1px solid #2b2b2b;
+    display: block;
+    grid-template-columns: auto;
+
+    p {
+      font-size: 18px;
+      margin-bottom: 7px;
+    }
+
+    a {
+      color: var(--highlight);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .previous {
+      float: left;
+      text-align: left;
+    }
+
+    .next {
+      float: right;
+      text-align: right;
+    }
+  }
 }
