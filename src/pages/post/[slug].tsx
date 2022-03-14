@@ -4,7 +4,6 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { RichText } from 'prismic-dom';
 
 import Prismic from '@prismicio/client';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { FiCalendar, FiUser, FiClock } from 'react-icons/fi';
@@ -14,6 +13,7 @@ import { getPrismicClient } from '../../services/prismic';
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
+import { Comments } from '../../components/Comments';
 
 interface Post {
   first_publication_date: string | null;
@@ -39,10 +39,6 @@ interface PostProps {
 export default function Post({ post }: PostProps) {
   const router = useRouter();
 
-  useEffect(() => {
-    console.log('ROUTER :::::', router);
-  }, [router]);
-
   if (router.isFallback) {
     return (
       <>
@@ -58,8 +54,6 @@ export default function Post({ post }: PostProps) {
     const wordsArray = post.data.content
       .map(content => RichText.asText(content.body))
       .join(' ');
-
-    console.log(wordsArray.length);
 
     const averageWordsReadPerMinute = 200;
     const averageReadingPost = Math.ceil(
@@ -78,34 +72,38 @@ export default function Post({ post }: PostProps) {
         <img src={post.data.banner.url} alt={post.data.title} />
       </div>
       <div className={commonStyles.wrapper}>
-        <article className={styles.post}>
-          <h1>{post.data.title}</h1>
-          <div className={styles.postData}>
-            <p>
-              <FiCalendar size={20} />{' '}
-              {format(new Date(post.first_publication_date), 'dd MMM yyyy', {
-                locale: ptBR,
-              })}
-            </p>
-            <p>
-              <FiUser size={20} /> {post.data.author}
-            </p>
-            <p>
-              <FiClock size={20} /> {calculateAverageReadingTime()} min
-            </p>
-          </div>
-          {post.data.content &&
-            post.data.content.map(content => (
-              <section key={content.heading} className={styles.postContent}>
-                <h2>{content.heading}</h2>
-                <article
-                  dangerouslySetInnerHTML={{
-                    __html: RichText.asHtml(content.body),
-                  }}
-                />
-              </section>
-            ))}
-        </article>
+        <div className={styles.postContainer}>
+          <article className={styles.post}>
+            <h1>{post.data.title}</h1>
+            <div className={styles.postData}>
+              <p>
+                <FiCalendar size={20} />{' '}
+                {format(new Date(post.first_publication_date), 'dd MMM yyyy', {
+                  locale: ptBR,
+                })}
+              </p>
+              <p>
+                <FiUser size={20} /> {post.data.author}
+              </p>
+              <p>
+                <FiClock size={20} /> {calculateAverageReadingTime()} min
+              </p>
+            </div>
+            {post.data.content &&
+              post.data.content.map(content => (
+                <section key={content.heading} className={styles.postContent}>
+                  <h2>{content.heading}</h2>
+                  <article
+                    dangerouslySetInnerHTML={{
+                      __html: RichText.asHtml(content.body),
+                    }}
+                  />
+                </section>
+              ))}
+          </article>
+
+          <Comments />
+        </div>
       </div>
     </>
   );

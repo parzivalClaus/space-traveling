@@ -12,7 +12,7 @@ export default function Header() {
     <header>
       <div className={commonStyles.wrapper}>
         <nav className={styles.navContent}>
-          <Link href="/" prefetch>
+          <Link href="/">
             <a href="/">
               <Image
                 src="/logo.png"
