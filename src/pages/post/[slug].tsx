@@ -14,6 +14,7 @@ import { getPrismicClient } from '../../services/prismic';
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
 import { Comments } from '../../components/Comments';
+import PreviewButton from '../../components/PreviewButton';
 
 interface Post {
   first_publication_date: string | null;
@@ -34,9 +35,10 @@ interface Post {
 
 interface PostProps {
   post: Post;
+  preview: boolean;
 }
 
-export default function Post({ post }: PostProps) {
+export default function Post({ post, preview }: PostProps) {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -103,6 +105,8 @@ export default function Post({ post }: PostProps) {
           </article>
 
           <Comments />
+
+          {preview && <PreviewButton />}
         </div>
       </div>
     </>
@@ -131,13 +135,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+  previewData,
+}) => {
   const prismic = getPrismicClient();
-  const response = await prismic.getByUID(
-    'posts',
-    String(context.params.slug),
-    {}
-  );
+  const response = await prismic.getByUID('posts', String(params.slug), {
+    ref: previewData?.ref ?? null,
+  });
 
   const post = {
     uid: response.uid,
@@ -163,6 +169,7 @@ export const getStaticProps: GetStaticProps = async context => {
   return {
     props: {
       post,
+      preview,
     },
     revalidate: 60 * 30, // 30 minutes
   };

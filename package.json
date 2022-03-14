@@ -10,6 +10,8 @@
     "coverage": "jest --coverage"
   },
   "dependencies": {
+    "@prismicio/next": "^0.1.0",
+    "@prismicio/react": "^2.1.2",
     "@prismicio/client": "^4.0.0",
     "date-fns": "^2.19.0",
     "next": "10.0.7",

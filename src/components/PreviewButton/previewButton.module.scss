@@ -1,0 +1,19 @@
+.button {
+  width: 100%;
+  background: var(--previewButton);
+  border: 0;
+  padding: 18px;
+  border-radius: 4px;
+
+  font-weight: 600;
+  font-size: 18px;
+
+  margin-top: 88px;
+  margin-bottom: 30px;
+
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(60%);
+  }
+}
