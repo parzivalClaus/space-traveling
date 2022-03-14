@@ -54,6 +54,21 @@ export default function Post({ post }: PostProps) {
     );
   }
 
+  const calculateAverageReadingTime = () => {
+    const wordsArray = post.data.content
+      .map(content => RichText.asText(content.body))
+      .join(' ');
+
+    console.log(wordsArray.length);
+
+    const averageWordsReadPerMinute = 200;
+    const averageReadingPost = Math.ceil(
+      wordsArray.length / averageWordsReadPerMinute
+    );
+
+    return averageReadingPost;
+  };
+
   return (
     <>
       <Head>
@@ -76,7 +91,7 @@ export default function Post({ post }: PostProps) {
               <FiUser size={20} /> {post.data.author}
             </p>
             <p>
-              <FiClock size={20} /> 4 min
+              <FiClock size={20} /> {calculateAverageReadingTime()} min
             </p>
           </div>
           {post.data.content &&
