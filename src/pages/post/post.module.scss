@@ -1,1 +1,71 @@
-// TODO
+.banner {
+  width: 100%;
+  height: auto;
+
+  img {
+    width: 100%;
+  }
+}
+
+.post {
+  margin-top: 80px;
+
+  h1 {
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  .postData {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+
+    p {
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 8px;
+      }
+
+      &:not(:first-child) {
+        margin-left: 28px;
+      }
+    }
+  }
+
+  .postContent {
+    margin-top: 64px;
+
+    h2 {
+      margin-bottom: 36px;
+      font-size: 36px;
+    }
+
+    p {
+      font-size: 18px;
+      text-align: justify;
+      margin-top: 24px;
+
+      a {
+        color: var(--highlight);
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      strong {
+        font-weight: 700;
+      }
+
+      em {
+        font-style: italic;
+      }
+    }
+
+    li {
+      margin-top: 24px;
+    }
+  }
+}

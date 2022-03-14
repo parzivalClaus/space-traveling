@@ -1,1 +1,60 @@
-// TODO
+.container {
+  flex-direction: column;
+
+  .postContainer {
+    flex-direction: column;
+
+    div {
+      & + div {
+        margin-top: 48px;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      h1 {
+        font-size: 34px;
+        font-weight: 700;
+      }
+
+      p {
+        font-size: 18px;
+        margin-top: 8px;
+      }
+
+      .creatorData {
+        margin-top: 24px;
+        display: flex;
+        justify-content: flex-start;
+
+        p {
+          display: flex;
+          align-items: center;
+
+          svg {
+            margin-right: 10.5px;
+          }
+
+          &:last-child {
+            margin-left: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  .loadMoreButton {
+    margin-top: 64px;
+    background: none;
+    border: 0;
+    color: var(--highlight);
+
+    font-size: 18px;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
