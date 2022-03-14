@@ -95,6 +95,17 @@ export default function Post({ post, preview, prevPost, nextPost }: PostProps) {
                 <FiClock size={20} /> {calculateAverageReadingTime()} min
               </p>
             </div>
+            {post.last_publication_date && (
+              <span className={styles.editedAt}>
+                {`* editado em ${format(
+                  new Date(post.last_publication_date),
+                  `dd MMM yyyy, 'às' hh:mm`,
+                  {
+                    locale: ptBR,
+                  }
+                )}`}
+              </span>
+            )}
             {post.data.content &&
               post.data.content.map(content => (
                 <section key={content.heading} className={styles.postContent}>
@@ -172,6 +183,7 @@ export const getStaticProps: GetStaticProps = async ({
   const post = {
     uid: response.uid,
     first_publication_date: response.first_publication_date,
+    last_publication_date: response.last_publication_date || null,
     data: {
       title: response.data.title,
       subtitle: response.data.subtitle,
